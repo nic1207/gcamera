@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html>
+  <lang="zh-tw">
+  <head>
+    <title>GShot</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="img/camera.ico" />
+    <link rel="stylesheet" href="js/libs/jqm/jquery.mobile-1.4.1.min.css" />
+    <link rel="stylesheet" href="css/tooltips.css" />
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jqm/jquery.mobile-1.4.1.js"></script>
+    <script src="js/libs/tooltips.js"></script>
+    <script src="js/libs/filer.js"></script>
+    <!--
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    -->
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <script src="js/libs/QuickGaussBlur.js"></script>
+    <script src="js/libs/alloyimage.js"></script>
+    <script src="js/libs/jquery.touchSwipe.js"></script>
+    <!--<script type="text/javascript"
+    src="https://getfirebug.com/firebug-lite.js"></script>-->
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body style="background:#000000;">
+    <canvas id="photoOri" style="display:none;"></canvas>
+    <img id="photoOriImg" style="display:none;"></img>
+    <canvas id="photo" style="display:none;"></canvas>
+    <img id="photoImg" style="display:none;"></img>
+    <video autoplay style="display:none;"></video>
+    <audio src="img/shot.mp3" preload="auto"></audio>
+
+
+    <!--照相頁面-->
+    <section id="cameraPage" class="page" data-role="page"  style="background:#000000">
+      <section id="cameraContainer" data-role="content">
+        <div id="menu_icon1"><a href="#menu" id="setting" rel="tooltip" title="設定" class="function"><img id="settings" src="img/setting.png"></a></div>
+        <div id="menu_icon2"><a href="#" class="function" id="flashlight" rel="tooltip" title="閃光燈"><img id="flash" src="img/flash.png"></a></div>
+        <div id="menu_icon3"><a href="#snapshotModeMenu" id="modesetting" rel="tooltip" title="模式設定" data-rel="popup" data-transition="slidedown" data-position-to="#camView" ><img id="camera-mode" class="function" src="img/camera-mode.png"></a></div>
+        <div id="menu_icon4"><a href="#" id="cameraswitch" rel="tooltip" title="鏡頭切換" class="function"><img id="change" src="img/change.png"></a></div>
+        <div id="menu_icon5"><a href='#' id="fscreen" rel="tooltip" title="全螢幕"><img id="fullScreen" class="function" src="img/NoFullScreen.png"></a></div>
+        <canvas id="camView"></canvas>
+        <a id="photoPvWnd" href="#"><canvas id="photoPv"></canvas></a>
+        <a href="#" id="snapshotTo" data-transition="filp"><img id="snapshot" src="img/Camera-icon.png" ></a>
+
+        <div class="box_face" id = "face_pullup">
+          <a id="face_showup" class="opener_face" href="#"><img id="faceItem_chose" class="face_drop" src="img/face/f0.png"></a>
+            <div class="drop_face">
+              <a href="#"><img id="faceItem_0" class="face_Item" src="img/face/f0.png"></a><br>
+              <a href="#"><img id="faceItem_1" class="face_Item" src="img/face/f1.png"></a><br>
+              <a href="#"><img id="faceItem_2" class="face_Item" src="img/face/f2.png"></a><br>
+              <a href="#"><img id="faceItem_3" class="face_Item" src="img/face/f3.png"></a><br>
+              <a href="#"><img id="faceItem_4" class="face_Item" src="img/face/f4.png"></a>
+            </div>
+        </div>
+
+        <div class="box_filter" id = "filter_pullup">
+           <a class="opener_filter" href="#" ><img id="filterItem_chose" class="filter_drop" src="img/filter/chose/ch_e0.png"></a>
+            <div class="drop_filter ui-grid-a">
+               <div class="ui-block-a">
+                 <a href="#"><img id="filterItem_0" class="filter_Item" src="img/filter/e0.png"></a><br>
+                 <a href="#"><img id="filterItem_1" class="filter_Item" src="img/filter/e1.png"></a><br>
+                 <a href="#"><img id="filterItem_2" class="filter_Item" src="img/filter/e2.png"></a><br>
+                 <a href="#"><img id="filterItem_3" class="filter_Item" src="img/filter/e3.png"></a><br>
+                 <a href="#"><img id="filterItem_4" class="filter_Item" src="img/filter/e4.png"></a>
+               </div>
+               <div class="ui-block-b">
+                 <a href="#"><img id="filterItem_5" class="filter_Item" src="img/filter/e5.png"></a><br>
+                 <a href="#"><img id="filterItem_6" class="filter_Item" src="img/filter/e6.png"></a><br>
+                 <a href="#"><img id="filterItem_7" class="filter_Item" src="img/filter/e7.png"></a><br>
+                 <a href="#"><img id="filterItem_8" class="filter_Item" src="img/filter/e8.png"></a><br>
+                 <a href="#"><img id="filterItem_9" class="filter_Item" src="img/filter/e9.png"></a>
+               </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- Setting Menu-->
+      <section data-role="panel" id="menu" data-display="overlay" data-theme="a" data-dismissible="false" data-position-fixed="true" >
+        <ul data-role="listview" data-theme="b">
+          <li data-role="divider">
+            <a href="#menu" class="ui-btn ui-btn-b ui-icon-carat-l ui-btn-icon-left">設定</a>
+          </li>
+        </ul>
+
+        <section data-role="collapsible-set" data-theme="a" data-inset="false">
+          <section data-role="collapsible" data-collapsed="false">
+            <h2>相機設置</h2>
+            <ul id="camSettings" data-role="listview">
+              <li  class="ui-field-contain">
+                <label for="grid">網格構圖</label>
+                <select id="grid" name="grid" class="setting" data-role="slider">
+                  <option value="off" selected>Off</option>
+                  <option value="on">On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="audioSwitch">快門音效</label>
+                <select id="audioSwitch" name="audioSwitch" class="setting" data-role="slider">
+                  <option value="off">Off</option>
+                  <option value="on" >On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="fullScreenSetting">全螢幕</label>
+                <select id="fullScreenSetting" name="fullScreenSetting" class="setting" data-role="slider">
+                  <option value="off">Off</option>
+                  <option value="on">On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="snapshotModeSetting">拍照模式切換</label>
+                <select name="snapshotModeSetting" id="snapshotModeSetting" data-mini="true" class="setting">
+                    <option value="normal">普通拍照</option>
+                    <option value="time">計時拍照</option>
+                    <option value="touch">觸屏拍照</option>
+                    <option value="blink">眨眼拍照</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="snapshotTime">定時拍照</label>
+                <input type="range" id="snapshotTime" name="snapshotTime" class="setting" min="3" max="10" data-highlight="true">
+              </li>
+              <li class="ui-field-contain">
+                鏡頭切換
+                <button id="cameraSourceSetting" class="ui-btn ui-btn-b setting">切換</button>
+              </li>
+              
+
+            <!--    <li class="ui-field-contain">
+                <label>拍照模式</label>
+                <form>
+                  <fieldset data-role="controlgroup" id="photoQuality"  data-type="horizontal">
+                    <input type="radio" name="cameraMode" id="mode_normal" value="normal" checked="checked">
+                    <label for="mode_normal">一般</label>
+                    <input type="radio" name="cameraMode" id="mode_touch" value="mid">
+                    <label for="photoQuality2">中</label>
+                    <input type="radio" name="cameraMode" id="mode_eye" value="high">
+                    <label for="photoQuality3">高</label>
+                    <input type="radio" name="p" id="mode_eye" value="high">
+                    <label for="photoQuality3">高</label>
+                  </fieldset>
+                </form>
+              </li> -->
+
+            </ul>
+          </section>
+          <section data-role="collapsible">
+            <h2>相片設置</h2>
+            <ul data-role="listview">
+              <li class="ui-field-contain">
+                <label for="saveOriPhoto">保留原圖</label>
+                <select id="saveOriPhoto" name="saveOriPhoto" class="setting" data-role="slider">
+                  <option value="off">Off</option>
+                  <option value="on">On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label>照片像素</label>
+                <form>
+                  <fieldset data-role="controlgroup" id="photoQuality"  data-type="horizontal">
+                    <input type="radio" name="photoQuality" id="photoQuality1" value="low" checked="checked">
+                    <label for="photoQuality1">低</label>
+                    <input type="radio" name="photoQuality" id="photoQuality2" value="mid">
+                    <label for="photoQuality2">中</label>
+                    <input type="radio" name="photoQuality" id="photoQuality3" value="high">
+                    <label for="photoQuality3">高</label>
+                  </fieldset>
+                </form>
+              </li>
+            </ul>
+          </section>
+          <section data-role="collapsible">
+            <h2>自動儲存設置</h2>
+            <ul data-role="listview">
+              <li class="ui-field-contain">
+                <label for="fileStorage">本地儲存</label>
+                <select id="fileStorage" name="fileStorage" class="setting" data-role="slider">
+                  <option value="off">Off</option>
+                  <option value="on" selected>On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="cloudStorage">自動雲端儲存</label>
+                <select id="cloudStorage" name="cloudStorage" class="setting" data-role="slider">
+                  <option value="off" selected>Off</option>
+                  <option value="on">On</option>
+                </select>
+              </li>
+              <li class="ui-field-contain">
+                <label for="cloudStorageType">雲端儲存</label>
+                <label><img id="gdLogin" name="cloudStorageType" class="setting" src="img/googleDrive_disable.png"></label>
+              </li>
+            </ul>
+          </section>
+          <section data-role="collapsible">
+            <h2>分享設置</h2>
+            <ul data-role="listview">
+              <li class="ui-field-contain">
+                <label for="shareType">社群分享</label>
+                <label><img class="setting" id="fbLogin" name="shareType" class="setting" src="img/facebook_disable.png"></label>
+              </li>
+            </ul>
+          </section>
+          <section data-role="collapsible">
+            <h2>關於GShot...</h2>
+            <ul  data-role="listview">
+              <li><a href="#AboutMe">關於我們</a></li>
+              <li>版本資訊: Gshot V0.1</li>
+            </ul>
+          </section>
+           <section data-role="listview">
+            <ul  data-role="listview">
+             <li><a href="#IconChange">自訂按鈕位置</a></li>
+            </ul>
+          </section>
+          <button id="reset" class="ui-btn ui-btn-b">設定重置</button>
+        </section>
+      </section>
+
+      <!-- Pop snapshotMode Menu-->
+      <section data-role="popup" id="snapshotModeMenu" data-overlay-theme="b" data-position-to="origin"  class="ui-corner-all">
+        <section class="ui-grid-a">
+          <section class="ui-block-a">
+            <img id="nomal" class="snapshotMode" src="img/standard.png">
+          </section>
+          <section class="ui-block-b">
+            <img id="time" class="snapshotMode" src="img/countdown.png">
+          </section>
+          <section class="ui-block-a">
+            <img id="touch" class="snapshotMode" src="img/touch.png">
+          </section>
+          <section class="ui-block-b">
+            <img id="blink" class="snapshotMode" src="img/blink.png">
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <!-- 關於我們頁面 -->
+    <section id="AboutMe" class="page" data-role="page" style="background:#FFFFFF">
+      <section id="AboutMeHeadBar" data-role="header" data-theme="b">
+          <a id="about_cancel" href="#cameraPage" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l">返回</a>
+          <h1>關於我們</h1>
+      </section>
+      <section id="IconChangeContainer" data-role="content">
+       
+      <p><br><img src = "img/foxconn_logo.png"></p>
+      <div id="aboutme_text">
+        <p>Gshot(鴻海神拍)是一套基於HTML5開發的APP</p>
+        <p>提供您一個透過網頁便可以拍照暨修圖的友善環境</p>
+        <p>更棒的是拍照後，還可以進行濾鏡，瘦臉，大眼，嫩白等多種後製</p>
+        <p>使用方式簡單易懂，從自拍，修圖到上傳只要三個步驟。</p>
+        <p>現在就開始使用吧！！</p>
+        <br>
+        <br>
+        <br>
+        <p>Powered by foxconn , Gshot小組</p>
+        <p>開發者信箱：foxc881@gmail.com</p>
+      </div>
+
+      </section>
+    </section>
+    <!--  *************-->
+
+
+    <!--濾鏡頁面-->
+    <section id="filterPage" class="page" data-role="page" data-theme="b" style="background:#000000">
+      <section id="filterHeadBar" data-role="header" data-theme="b">
+        <h1>照片美化</h1>
+      </section>
+      <section  data-role="content">
+        <canvas id="filterView"></canvas>
+        <!-- 找不到臉的顯示 -->
+        <div id ="auto_fail" class ="noDetect_msg">
+          <p>臉部辨識失敗，再拍一次如何呢?</p>
+        </div>
+        <!-- *************** -->
+      </section>
+      <section id="selectFootBar" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false">
+        <section id="faceNavBar" data-role="navbar" data-theme="b">
+          <ul>
+            <li><img class="face" src="img/face/f0.png"><h1>原圖</h1></li>
+            <li><img class="face" src="img/face/f1.png"><h1>大眼大臉</h1></li>
+            <li><img class="face" src="img/face/f2.png"><h1>大眼瘦臉</h1></li>
+            <li><img class="face" src="img/face/f3.png"><h1>小眼瘦臉</h1></li>
+            <li><img class="face" src="img/face/f4.png"><h1>小眼大臉</h1></li>
+          </ul>
+        </section>
+        <section id="filterNavBar" data-role="navbar" data-theme="b" style="display:none;">
+          <ul>
+            <li><p><img id="filterLeft" src="img/left.png" style="display:none;"></p></li>
+            <li><img class="filter" src="img/filter/noText/nt_e0.png"><h1 class="filter">原圖</h1></li>
+            <li><img class="filter" src="img/filter/noText/nt_e1.png"><h1 class="filter">柔膚</h1></li>
+            <li><img class="filter" src="img/filter/noText/nt_e2.png"><h1 class="filter">嫩白</h1></li>
+            <li><p><img id="filterRight" src="img/right.png"></p></li>
+          </ul>
+        </section>
+        <section id="userEditNavBar" data-role="navbar" data-theme="b" style="display:none;">
+          <ul>
+            <li><p><img id="userEditLeft" src="img/left.png" style="display:none;"></p></li>
+            <li><img class="userEdit" src="img/edit/e0.png"><h1 class="userEdit">剪裁</h1></li>
+            <li><img class="userEdit" src="img/edit/e1.png"><h1 class="userEdit">旋轉</h1></li>
+            <li><img class="userEdit" src="img/edit/e2.png"><h1 class="userEdit">美肌</h1></li>
+            <li><p><img id="userEditRight" src="img/right.png"></p></li>
+          </ul>
+        </section>
+        <section id="selectNavBar" data-role="navbar">
+          <ul>
+            <li><a href="#" id="gotoCamera1" class="ui-btn ui-icon-camera ui-btn-icon-top">返回拍照</a></li>
+            <li><a href="#" id="edit1" class="ui-btn-active ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-myicon-edit">自訂</a></li>
+            <li><a href="#" id="edit2" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-myicon-filter">濾鏡</a></li>
+            <li><a href="#" id="edit3" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-myicon-face">美容</a></li>
+            <li><button id="gotoShare" class="ui-btn ui-icon-cloud ui-btn-icon-top">分享</button></li>
+          </ul>
+        </section>
+      </section>
+      <!-- <section class="box_share"> -->
+        <div id ="shareItem_space">
+          <p><img id="shareItem_0" class="share_drop" src="img/gallery_circle.png"></p>
+          <p><img id="shareItem_1" class="share_drop" src="img/facebook.png"></p>
+          <p><img id="shareItem_2" class="share_drop" src="img/googleDrive.png"></p>
+          <p><img id="shareItem_3" class="share_drop" src="img/sina_circle.png"></p>
+        </div>
+
+      <!-- </section> -->
+
+    </section>
+
+    <!--分享頁面-->
+    <section id="sharePage" class="page" data-role="page" style="background:#000000">
+      <section id="shareHeadBar" data-role="header" data-theme="b">
+          <h1>分享</h1>
+      </section>
+      <section  data-role="content">
+        <canvas id="shareView"></canvas>
+      </section>
+      <section id="shareFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+          <ul>
+            <li><a href="#" id="gallery" class="sharedWeb" download="photo.jpg"><img class="icon_editBar" src="img/gallery.png"><br>相片庫</a></li>
+            <li><a href="#" id="facebook" class="sharedWeb"><img class="icon_editBar" src="img/facebook.png"><br>Facebook</a></li>
+            <li><a href="#" id="googleDrive" class="sharedWeb"><img class="icon_editBar" src="img/googleDrive.png"><br>Google Drive</a></li>
+            <!-- 
+            <li><a href="#" id="sina_weibo" class="sharedWeb"><img src="img/sina_weibo_disable.png"><br>新浪微博</a></li>
+            -->
+          </ul>
+        </section>
+        <section data-role="navbar">
+          <ul>
+            <li><a href="#filterPage" id="gotoFilter"  class="ui-btn ui-icon-edit ui-btn-icon-top">返回修改</a></li>
+            <li></li>
+            <li><a href="#" id="gotoCamera2"  class="ui-btn ui-icon-camera ui-btn-icon-top">繼續拍照</a></li>
+          </ul>
+        </section>
+      </section>
+      <section id="popupWnd" data-role="popup" data-overlay-theme="a" data-theme="b">
+        <p id="popupMessage"></p>
+      </section>
+    </section>
+
+    <!--Gallery頁面-->
+    <section id="galleryPage" class="page" data-role="page" style="background:#000000">
+      <section id="galleryHeadBar" class="ui-grid-d" data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
+        <section class="ui-block-a">
+          <!--<a href="#" data-rel="popup" data-transition="slidedown" data-position-to="#cameraHeadBar" >-->
+          <a href="#" id="gotoCamera3" class="ui-btn ui-btn-b">
+            <img src="img/camera_s.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>圖片庫</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="gotoDelete2"  style="display:none;" class="ui-btn ui-btn-b">
+            <img src="img/delete_s.png">
+          </a>
+        </section>
+      </section>
+      <section data-role="content">
+        <canvas id="galleryView" style="border-style:solid;border-color:white;border-width:1px;"></canvas>
+      </section>
+      <section id="galleryFootBar" data-role="footer" data-theme="b" data-position="fixed" data-tap-toggle="false"></section>
+      <img id="checkImage" src="img/check.png" style="display:none;">
+      <img id="cloudImage" src="img/cloud.png" style="display:none;">
+    </section>
+
+    <!--photo頁面-->
+    <section id="photoPage" class="page" data-role="page" style="background:#000000">
+      <section id="photoHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="gotoGallery1" class="ui-btn ui-btn-b">
+            <img src="img/gallery_s.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c">
+          <span id="photoIndex">1</span> / <span id="photoCount">1</span>
+          <span id="photoFileName">p0000000000000</span>
+        </section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="savePhoto" class="ui-btn ui-btn-b" download="photo.jpg">
+            <!-- <img src="img/save_s.png"> -->
+            <img src="img/download_icon.png">
+          </a>
+        </section>
+
+      </section>
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="photoView"></canvas></section>
+      </section>
+      <section id="photoFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+            <ul>
+              <!-- <li><a href="#" id="gotoEdit"><img src="img/filter.png"><br>編輯</a>
+              <li><a href="#" id="gotoShare1"><img src="img/share.png"><br>分享</a>
+              <li><a href="#" id="gotoDelete1"><img src="img/delete.png"><br>刪除</a> -->
+              <li><a href="#" id="gotoEdit"><img src="img/edit_icon.png"><br>編輯</a>
+              <li><a href="#" id="gotoShare1"><img src="img/share_icon.png"><br>分享</a>
+              <li><a href="#" id="gotoDelete1"><img src="img/delete_icon.png"><br>刪除</a>
+            </ul>
+          </section>
+      </section>
+    </section>
+
+    <!--美肌頁面-->
+    <section id="beautyPage" class="page" data-role="page" style="background:#000000">
+      <!-- <section id="beautyHeadBar" class="ui-grid-d" data-role="header" data-theme="b"> -->
+        <!-- <section class="ui-block-a"> -->
+          <!--<a href="#" data-rel="popup" data-transition="slidedown" data-position-to="#cameraHeadBar" >-->
+          <!-- <a href="#" id="cancelBeauty"><img src="img/cancel_white.png"></a> -->
+          <!-- <a id="cancelBeauty" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a> -->
+        <!-- </section> -->
+        <!-- <section class="ui-block-b"></section> -->
+        <!-- <section class="ui-block-c"><h1>美肌</h1></section> -->
+        <!-- <section class="ui-block-d"></section> -->
+        <!-- <section class="ui-block-e"> -->
+          <!-- <a href="#" id="gotoCustom01"><img src="img/ok_white.png"></a> -->
+          <!-- <a id="gotoCustom01" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a> -->
+        <!-- </section> -->
+      <section id="beautyHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBeauty" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>美肌</h1>
+          <a id="gotoCustom01" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <!-- </section> -->
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="beautyView"></canvas></section>
+        <!-- <section id = "beauty_slider" class="slidetrack">
+          <input type="range" name="slider-step" id="slider-step" class="beauty_slider" value="1" min="1" max="25"/ >
+        </section> -->
+      </section>
+      <section id="beautyFootBar" data-role="footer" data-theme="b">
+      
+        <section data-role="navbar">
+           <!-- <input type="range" name="slider-step" data-highlight="true" id="slider-step" class="beauty_slider"  data-theme="a" value="1" min="1" max="25"/ > -->
+               <div class="label_text"> 美白效果:</div>
+               <div class ="slider_div">
+                <form class="full-width-slider">
+                  <input type="range" id="slider-step" data-highlight="true" class="beauty_slider" data-theme="a" value="1" min="1" max="25">
+                </form>
+               </div>
+        </section>
+        
+        <!-- <button id ="beautyskin_btn"  class="hide_btn"><span>隱藏</span></button> -->
+      </section>
+    </section>
+
+    <!--裁剪頁面-->
+    <section id="cutPage" class="page" data-role="page" style="background:#000000">
+      <!-- <section id="cutHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelCut">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>裁剪</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="saveCut">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+      <section id="cutHeadBar" data-role="header" data-theme="b">
+          <a id="cancelCut" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>裁剪</h1>
+          <a id="saveCut" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+      
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="cutView"></canvas></section>
+      </section>
+      <section id="cutFootBar" data-role="footer" data-theme="b">
+        <!--<section data-role="navbar">
+          <input type="range" name="slider-step" id="slider-step" value="1" min="1" max="25" />
+        </section>
+        -->
+        <section data-role="navbar">
+          <ul>
+          <li><a href="#" id="resetCut">
+            <img class="icon_editBar" src="img/reset.png"><div>重設</div>
+          </a></li>
+          <li><a href="#" id="previewCut">
+            <img class="icon_editBar" src="img/preview.png"><div>預覽</div>
+          </a></li>
+          <li><a href="#" id="scaleCut">
+          <img class="icon_editBar" src="img/scale.png"><div>比例</div>
+          </a></li>
+          </ul>
+        </section>
+      </section>
+    </section>
+
+    <!--旋轉頁面-->
+    <section id="rotPage" class="page" data-role="page" style="background:#000000">
+      <!-- <section id="rotHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelRot">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>旋轉</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="saveRot">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+      <section id="rotHeadBar" data-role="header" data-theme="b">
+          <a id="cancelRot" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>旋轉</h1>
+          <a id="saveRot" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b">
+          <canvas id="rotView"></canvas>
+          <canvas id="saveView" style="display:none;"></canvas>
+        </section>
+      </section>
+      <section id="rotFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+          <ul>
+          <li><a href="#" id="leftRot">
+          <img class="icon_editBar" src="img/rotate_left.png">
+            <div>左旋90度</div>
+          </a></li>
+          <li><a href="#" id="mirrorRot">
+          <img class="icon_editBar" src="img/rotate_mirror.png">
+            <div>鏡像</div>
+          </a></li>
+          <li><a href="#" id="rightRot">
+          <img class="icon_editBar" src="img/rotate_right.png">
+            <div>右旋90度</div>
+          </a></li>
+          </ul>
+        </section>
+      </section>
+    </section>
+
+    <!--智能美容頁面-->
+    <section id="abPage" class="page" data-role="page" style="background:#000000">
+<!--       <section id="abHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelAb">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>智能美容</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="abSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+      <section id="abHeadBar" data-role="header" data-theme="b">
+          <a id="cancelAb" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>智能美容</h1>
+          <a id="abSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="abView"></canvas></section>
+        <!-- 找不到臉的顯示 -->
+        <div id ="edit_fail" class ="noDetect_msg">
+          <p>需臉部辨識支援喔，不考慮再拍一張嗎?</p>
+        </div>
+        <!-- *************** -->
+        <!-- <section id="faceANDeye_slider" class="slidetrack">
+          <input type="range" name="slider-face" id="slider-face" value="10" min="10" max="30" />
+          <input type="range" name="slider-eye" id="slider-eye" value="10" min="10" max="100" />
+        </section> -->
+      </section>
+      <section id="abFootBar" data-role="footer" data-theme="b">
+      
+        <section data-role="navbar">
+<!--           <input type="range" data-highlight="true" name="slider-face" id="slider-face" value="10" min="10" max="30" />
+          <input type="range" data-highlight="true" name="slider-eye" id="slider-eye" value="10" min="10" max="100" /> -->
+           
+
+              <form class="full-width-slider">
+                <div>
+                  <div class="label_text"> 瘦臉效果:</div>
+                  <div class="slider_div">
+                    <input type="range" data-highlight="true" id="slider-face" data-theme="a" value="10" min="10" max="30" />
+                  </div>
+                </div>
+                <div>
+                  <div class="label_text"> 大眼效果:</div> 
+                  <div class="slider_div">
+                    <input type="range" data-highlight="true" id="slider-eye" data-theme="a" value="10" min="10" max="100" />
+                  </div>
+                </div>
+              </form>
+
+
+        </section>
+      
+        <!-- <button id ="autobeauty_btn" class="hide_btn"><span>隱藏</span></button> -->
+      </section>
+    </section>
+
+    <!--豐胸頁面-->
+    <section id="bbPage" class="page" data-role="page" style="background:#000000">
+ <!--      <section id="bbHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelBb">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>豐胸</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="bbSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+      <section id="bbHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBb" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>豐胸</h1>
+          <a id="bbSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="bbView"></canvas></section>
+        <!-- <section id="breast_slider" class="slidetrack">
+          <input type="range" name="slider-bra" id="slider-bra" class="slidetrack" value="10" min="10" max="100" />
+        </section> -->
+      </section>
+      <section id="bbFootBar" data-role="footer" data-theme="b">
+        <!-- <input type="range" name="slider-bra" data-highlight="true" id="slider-bra" class="slidetrack" value="10" min="10" max="100" /> -->
+           <div class="label_text2"> 豐胸效果:</div>
+           <div class ="slider_div">
+            <form class="full-width-slider">
+              <input type="range" data-highlight="true" id="slider-bra" data-theme="a" value="10" min="10" max="100" />
+            </form>
+           </div>
+      </section>
+    </section>
+
+    <!--馬賽克頁面-->
+    <section id="bmPage" class="page" data-role="page" style="background:#000000">
+<!--       <section id="bmHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelBm">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>馬賽克</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="bmSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+
+      <section id="bmHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBm" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>馬賽克</h1>
+          <a id="bmSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="bmView"></canvas></section>
+        <section id="mosaic_slider" class="slidetrack">
+          <!-- <input id="slider-mosaic" type="range" name="slider-mosaic" data-highlight="true" value="50" min="10" max="100" /> -->
+          <!-- <form class="full-width-slider">
+            <input type="range" data-highlight="true" id="slider-mosaic" data-theme="a" value="50" min="10" max="100" />
+          </form> -->
+        </section>
+      </section>
+      <section id="bmFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+           <div class="label_text"> 筆刷大小:</div>
+           <div class ="slider_div">
+           <form class="full-width-slider">
+            <input type="range" data-highlight="true" id="slider-mosaic" data-theme="a" value="50" min="10" max="100" />
+           </form>
+         </div>
+        
+          <section class="filter" class="ui-grid-a ">
+            <!-- <ul data-role="controlgroup">
+              <li><a href="#" id="activeMosaic" data-role="button" class="ui-btn-active">
+                <img class="icon_editBar" src="img/mosaic_pen.png">
+              </a></li>
+              <li><a href="#" id="activeEraser" data-role="button">
+                <img class="icon_editBar" src="img/mosaic_eraser.png">
+              </a></li>
+            </ul> -->
+            <ul>
+              <li><a href="#" id="activeMosaic" data-role="button" class="ui-btn-active">
+                <img class="icon_editBar_MOS" src="img/mosaic_pen.png">
+              </a></li>
+              <li><a href="#" id="activeEraser" data-role="button">
+                <img class="icon_editBar_MOS" src="img/mosaic_eraser.png">
+              </a></li>
+            </ul>
+          </section>
+        <!-- <button id ="mosaic_btn" class="hide_btn"><span>隱藏</span></button> -->
+        </section>
+
+      </section>
+    </section>
+
+    <!--瘦臉瘦身頁面-->
+    <section id="bsPage" class="page" data-role="page" style="background:#000000">
+<!--       <section id="bsHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelBs">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>瘦臉瘦身</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="bsSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+
+      <section id="bsHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBs" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>瘦臉瘦身</h1>
+          <a id="bsSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="bsView"></canvas></section>
+<!--          <section id = "slim_slider" class="ui-grid-a">
+            <input type="range" name="slider-slim" id="slider-slim" value="50" min="10" max="100" />
+          </section> -->
+      </section>
+      <section id="bsFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+          <section class="ui-grid-a">
+             <!-- <input type="range" name="slider-slim"  data-highlight="true" id="slider-slim" value="50" min="10" max="100" /> -->
+           <div class="label_text2"> 筆刷大小:</div>
+           <div class ="slider_div">
+            <form class="full-width-slider">
+              <input type="range" data-highlight="true" id="slider-slim" data-theme="a" value="50" min="10" max="100" />
+            </form>
+           </div>
+          </section>
+           <!-- <button id ="slim_btn" class="hide_btn"><span>隱藏</span></button> -->
+        </section>
+      </section>
+    </section>
+
+    <!--遮瑕頁面-->
+    <section id="bcPage" class="page" data-role="page" style="background:#000000">
+<!--       <section id="bcHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelBc">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>遮瑕</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="bcSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+      <section id="bcHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBc" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>遮瑕</h1>
+          <a id="bcSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="bcView"></canvas></section>
+         <!-- <section id = "concealer_slider" class="ui-grid-a">
+            <input type="range" name="slider-concealer" id="slider-concealer" value="2" min="2" max="5" />
+          </section> -->
+      </section>
+      <section id="bcFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+          <!-- <input type="range" name="slider-concealer" data-highlight="true" id="slider-concealer" value="2" min="2" max="5" /> -->
+          <div class="label_text"> 筆刷大小:</div>
+          <div class ="slider_div">
+            <form class="full-width-slider">
+              <input type="range" data-highlight="true" id="slider-concealer" data-theme="a" value="2" min="2" max="5" />
+            </form>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <!--去皺頁面-->
+    <section id="bwPage" class="page" data-role="page" style="background:#000000">
+<!--       <section id="bwHeadBar" class="ui-grid-d" data-role="header" data-theme="b">
+        <section class="ui-block-a">
+          <a href="#" id="cancelBw">
+            <img src="img/cancel_white.png">
+          </a>
+        </section>
+        <section class="ui-block-b"></section>
+        <section class="ui-block-c"><h1>去皺</h1></section>
+        <section class="ui-block-d"></section>
+        <section class="ui-block-e">
+          <a href="#" id="bwSave">
+            <img src="img/ok_white.png">
+          </a>
+        </section>
+      </section> -->
+
+      <section id="bwHeadBar" data-role="header" data-theme="b">
+          <a id="cancelBw" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>去皺</h1>
+          <a id="bwSave" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+
+      <section data-role="content">
+        <section class="ui-grid-b"><canvas id="bwView"></canvas></section>
+<!--          <section id = "wrinkles_slider" class="ui-grid-a">
+            <input type="range" name="slider-wrinkles" id="slider-wrinkles" value="2" min="2" max="6" />
+          </section> -->
+      </section>
+      <section id="bwFootBar" data-role="footer" data-theme="b">
+        <section data-role="navbar">
+          <!-- <input type="range" name="slider-wrinkles" data-highlight="true" id="slider-wrinkles" value="2" min="2" max="6" /> -->
+           <div class="label_text"> 筆刷大小:</div>
+           <div class ="slider_div">
+            <form class="full-width-slider">
+              <input type="range" data-highlight="true" id="slider-wrinkles" data-theme="a" value="2" min="2" max="6" />
+            </form>
+          </div>
+        </section>
+      </section>
+    </section>
+
+
+    <!--自訂icon 畫面-->
+    <section id="IconChange" class="page" data-role="page" style="background:#000000">
+      <section id="IconHeadBar" data-role="header" data-theme="b">
+          <a id="cancelChange" href="#cameraPage" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">取消</a>
+          <h1>自訂按鈕排列</h1>
+          <a id="enterChange" href="#cameraPage" class="ui-btn-right ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">確定</a>
+      </section>
+      <section id="IconChangeContainer" data-role="content">
+        <a id="icon-s1" href="#"><img class="function" id="icon-1" src="img/setting.png"></a>
+        <a id="icon-s2" href="#iconMenu" data-rel="popup" data-transition="flip"><img id="icon-2" src="img/flash.png"></a>
+        <a id="icon-s3" href="#iconMenu" data-rel="popup" data-transition="flip"><img id="icon-3" src="img/camera-mode.png"></a>
+        <a id="icon-s4" href="#iconMenu" data-rel="popup" data-transition="flip"><img id="icon-4" src="img/change.png"></a>
+        <a id="icon-s5" href="#iconMenu" data-rel="popup" data-transition="flip"><img id="icon-5" src="img/NoFullScreen.png"></a>
+        <canvas id="camView"></canvas>
+        <!-- <a id="photoPvWnd" href="#"><canvas id="photoPv"></canvas></a> -->
+        <a id="icon-s7" href="#"><img id="icon-7" src="img/Camera-icon.png" ></a>
+        <a id="icon-s8" href="#"><img id="icon-8" src="img/face/f0.png"></a>
+        <a id="icon-s9" href="#"><img id="icon-9" src="img/filter/chose/ch_e0.png"></a>
+
+
+        <section data-role="popup" id="iconMenu" data-inline="true" class="ui-corner-all" data-position-to="window">
+          <section class="ui-grid-a">
+
+            <section class="ui-block-a">
+              <p><img id="tmpicon-flash" class="menu_icon" src="img/flash.png"><br>閃光燈</p>
+              <p><img id="tmpicon-mode" class="menu_icon" src="img/camera-mode.png"></br>拍照模式</p>
+              <p><img id="tmpicon-change" class="menu_icon" src="img/change.png"></br>鏡頭切換</p>
+              <p><img id="tmpicon-fullscreen" class="menu_icon" src="img/NoFullScreen.png"></br>全螢幕</p>
+            </section>
+
+            <section class="ui-block-b">
+              <p><img id="tmpicon-grid" class="menu_icon" src="img/grid.png"></br>網格構圖</p>
+              <p><img id="tmpicon-org" class="menu_icon" src="img/orgpic.png"></br>保留原圖</p>
+              <p><img id="tmpicon-sound" class="menu_icon" src="img/sound.png"></br>快門音效</p>
+              <p><img id="tmpicon-remove" class="menu_icon" src="img/cancel_white.png"></br>移除按鈕</p>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+
+  <script src="js/face_detection/object_detect.js"></script>
+  <script src="js/face_detection/object_detect_frontalface.js"></script>
+  <script src="js/face_detection/jquery_object_detect.js"></script>
+  <script src="js/face_detection/detect_face_and_eye_algo.js"></script>
+  <script src="js/face_detection/face_deform.js"></script>
+  <script src="js/face_detection/js_manipulate.js"></script>
+  <script src="js/rect.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/camera_page.js"></script>
+  <script src="js/filter_page.js"></script>
+  <script src="js/share_page.js"></script>
+  <script src="js/gallery_page.js"></script>
+  <script src="js/photo_page.js"></script>
+  <script src="js/beauty_skin.js"></script>
+  <script src="js/cut_page.js"></script>
+  <script src="js/rotate_page.js"></script>
+  <script src="js/auto_beauty.js"></script>
+  <script src="js/beauty_breast.js"></script>
+  <script src="js/beauty_mosaic.js"></script>
+  <script src="js/beauty_slim.js"></script>
+  <script src="js/beauty_concealer.js"></script>
+  <script src="js/beauty_wrinkles.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/blink_tracker.js"></script>
+  <script src="js/head_trackr.js"></script>
+  <script src="js/icon_page.js"></script>
+  </body>
+</html>

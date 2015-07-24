@@ -1,0 +1,1047 @@
+body {
+  background: #708090;
+  margin: 0 auto;
+}
+
+.ui-body-c, .ui-overlay-c
+{
+  background:#000000;
+}
+
+.ui-content{
+  padding:0em;
+}
+
+.ui-panel{
+  width:80%;
+}
+
+#cameraPage,#filterPage,#sharePage{
+  overflow:hidden;
+}
+
+.ui-page-theme-a{
+  color: #FFFFFF;
+  text-shadow: 0 0px 0 #000000;
+}
+
+section {
+  z-index: 2; 
+  text-align:center;
+  margin: 0 auto;
+}
+
+#cameraHeadBar,#cameraFootBar{
+ background: rgba(20%,20%,20%,0.5);
+}
+#camerafilterList{
+ background: rgba(20%,20%,20%,0.5);
+ opacity:0.7;
+ position: fixed;
+ width: 100%;
+ height: 15%;
+ top: 60%;
+}
+
+img.icon_editBar{
+  max-width: 25%;
+  max-height: 25%;
+}
+img.icon_editBar_MOS{
+  max-width: 15%;
+  max-height: 15%;
+}
+
+img#filterLeft, img#filterRight, img#camerafilterLeft, img#camerafilterRight,img#userEditRight,img#userEditLeft{
+  text-align:center;
+  max-width: 30%;
+  max-height: 30%;
+}
+
+#snapshotModeMenu{
+ background: rgba(5%,5%,5%,0.5);
+}
+
+img {
+  z-index: 2; 
+  max-width: 50%;
+  max-height: 50%;
+}
+
+img.filter, img.camerafilter{
+  max-width: 50%;
+}
+
+img#filterLeft, img#filterRight{
+  text-align:center;
+}
+
+img.setting{
+  max-width: 2em;
+  max-height: 2em;
+}
+
+div img#settings,div img#flash,div img#camera-mode,div img#change,div img#fullScreen,div img#gridView,
+div img#orgpic,div img#sound,div img#timer,div img#pixel{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+#menu_icon1{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 2%;
+  left:2%;
+}
+#menu_icon2{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 2%;
+  left:23%;
+  /*opacity:0.3;*/
+}
+
+#menu_icon3{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 2%;
+  left:44%;
+}
+
+#menu_icon4{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 2%;
+  left:65%;
+}
+
+#menu_icon5{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 2%;
+  left:86%;
+}
+
+img#up{
+  z-index: 5; 
+  position:fixed;
+  max-width: 6%;
+  max-height: 6%;
+  top: 73%;
+  left:47%;
+}
+
+img#snapshot{
+  position:fixed;
+  max-width: 20%;
+  max-height: 20%;
+  top: 80%;
+  left:40%;
+}
+
+img.snapshotMode{
+  min-height: 7em;
+  min-width: 7em;
+  max-width: 50%;
+  max-height: 50%;
+  margin: 1em;
+}
+
+img#camera, img#save_s, img#gallery_s{
+  text-align:center;
+  margin: 0 auto;
+  display:inline;
+}
+
+canvas {
+  z-index: 1; 
+  text-align:center;
+}
+
+canvas#photoPv {
+  z-index: 3; 
+  position:fixed;
+  top: 82%;
+  left: 15%;
+  max-width: 12%;
+  max-height: 12%;
+}
+
+
+.box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 65%;
+/*    min-height: 50%;*/
+/*    max-height: 80%;
+    max-width: 80%;*/
+    /*max-height: 100%;*/
+    /*position: relative;*/
+    /*margin: 500px 20px 0;*/
+}
+.box_face .opener_face {
+    display: block;
+    line-height: 40px;
+}
+.box_face .drop_face {
+    border-radius: 20px;
+    position: absolute;
+    display: none;
+    background:rgba(0, 0, 0,0.5);
+    bottom: 110%;
+    /*max-width:100%;*/
+}
+
+.box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    right: 5%;
+    /*min-height: 40%;*/
+    /*max-width: 40%;*/
+/*    max-width: 80%;
+    max-height: 80%;*/
+    /*position: relative;
+    /*margin: 500px 20px 0;*/
+
+}
+.box_filter .opener_filter {
+    display: block;
+    line-height: 40px;
+
+}
+.box_filter .drop_filter {
+    border-radius: 20px;
+    position: absolute;
+    display: none;
+    background:rgba(0, 0, 0,0.5);
+    bottom: 110%;
+    max-width:200%;
+}
+
+.face_drop{
+    max-height:20%;
+}
+.filter_drop{
+    max-height:20%;
+}
+.filter_Item{
+    max-width: 100%;
+    max-height:60%;
+}
+.face_Item{
+  max-width: 60%;
+  max-height: 60%;
+}
+
+#shareItem_space {
+  z-index: 3;
+  left: 80%;
+  border-radius: 20px;
+  position: fixed;
+  background:#242424;
+  bottom: 80px;
+  display:none;
+  width: 20%;
+}
+
+
+#filterNavBar,#userEditNavBar,#faceNavBar{
+  z-index:3;
+  background:rgba(0, 0, 0, 0.3);
+  width:100%;
+  /*
+  position: fixed;
+  top:75%;
+  */
+}
+
+#selectFootBar{
+  z-index:3;
+  background:rgba(0, 0, 0, 0);
+  width:100%;
+}
+
+.bottomicon{
+  top:90%;
+  max-width: 30%;
+  /*position:fixed;*/
+}
+
+/*#selectFootBar{
+  position: fixed;
+  top:80%;
+  left: 50%;
+   margin-left: -80px;*//* half of #div width*/
+  /*width: 100%;*/
+  /*position:fixed;*/
+/*}*/
+
+#gotoCamera1,#gotoShare,#gotoFilter,#gotoCamera2{
+/*background: #5E5E5E;*/
+  background:#00425D;
+}
+
+
+
+/*.userEdit{
+  background:rgba(0, 0, 0,0.5);
+}*/
+
+/*#slider-step,#slider-face,#slider-eye,#slider-bra,#slider-mosaic,#slider-slim,#slider-concealer,#slider-wrinkles{
+  display: none;
+  margin-left: 15px;
+}*/
+
+/*#faceANDeye_slider,#mosaic_slider{
+  position: fixed;
+  top:70%;
+  width: 100%;
+}
+
+#beauty_slider,#breast_slider,#slim_slider{
+  position: fixed;
+  top:80%;
+  width: 100%;
+}*/
+
+.ui-bar-a{
+  background: #818181;
+  border-color: #000;
+}
+
+
+.full-width-slider{
+  width:95%;
+}
+
+/* Hide the number input */
+.full-width-slider input {
+    display: none;
+}
+/*.full-width-slider .ui-slider-track {
+    margin-left: 15px;
+}*/
+
+.label_text{
+  float: left;
+  text-shadow:none;
+  padding: 5px;
+}
+.label_text2{
+  float: left;
+  text-shadow:none;
+  padding: 5px;
+  padding-top: 15px;
+}
+
+.slider_div{
+  position: relative;
+  left: 25px;
+}
+
+#aboutme_text{
+  position: fixed;
+  top:30%;
+  width: 100%;
+  color:#000000;
+}
+
+
+/**************自訂按鈕位置**************/
+img#icon-1{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 8%;
+  left:2%;
+}
+img#icon-2{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 8%;
+  left:23%;
+}
+
+img#icon-3{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 8%;
+  left:44%;
+}
+
+img#icon-4{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 8%;
+  left:65%;
+}
+
+img#icon-5{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top: 8%;
+  left:86%;
+}
+
+img#icon-7{
+  position:fixed;
+  max-width: 20%;
+  max-height: 20%;
+  top: 80%;
+  left:40%;
+}
+
+img#icon-8{
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 65%;
+    max-width: 10%;
+    max-height: 10%;
+}
+img#icon-9{
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 80%;
+    max-width: 10%;
+    max-height: 10%;
+}
+
+#iconMenu{
+ background:#000000;
+ color: #FFFFFF;
+ text-shadow:none;
+
+}
+img.menu_icon{
+  width:100%;
+}
+/****************************/
+
+.ui-icon-myicon-edit:after {
+    background-image: url("../img/icon/magic.png");
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
+
+.ui-icon-myicon-filter:after {
+    background-image: url("../img/icon/star-half-o.png");
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
+
+.ui-icon-myicon-face:after {
+    background-image: url("../img/icon/smile-o.png");
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
+
+.noDetect_msg{
+  position: fixed;
+  top:40%;
+  z-index:5;
+  display: none;
+  border: 3px;
+  border-color: #FFFFFF;
+  background:rgba(0, 0, 0,0.5);
+  text-align: center;
+  font-size: 20px;
+  width: 100%;
+}
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px){
+
+  .ui-panel{
+    width:65%;
+  }
+
+  img { 
+    max-width: 40%;
+    max-height: 40%;
+  }
+
+  img.filter {
+    max-height: 100%;
+  }
+
+  img#settings{
+    max-width: 15%;
+    max-height: 15%;
+    left:2%;
+  }
+
+  img#flash{
+    max-width: 15%;
+    max-height: 15%;
+    left:22%;
+  }
+
+  img#camera-mode{
+    max-width: 15%;
+    max-height: 15%;
+    left:42%;
+  }
+
+  img#change{
+    max-width: 15%;
+    max-height: 15%;
+    left:62%;
+  }
+
+  img#fullScreen{
+    max-width: 15%;
+    max-height: 15%;
+    left:82%;
+  }
+
+  img#up{
+    max-width: 7%;
+    max-height: 7%;
+    top: 70%;
+    left:44%;
+  }
+
+  img#snapshot{
+    max-width: 20%;
+    max-height: 20%;
+    top: 77%;
+    left:40%;
+  }
+
+  img.snapshotMode{
+    min-height: 10em;
+    min-width: 10em;
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  canvas#photoPv {
+    z-index: 3; 
+    position:fixed;
+    top: 80%;
+    left: 10%;
+    max-width: 15%;
+    max-height: 15%;
+  }
+
+  img#camera, img#save_s, img#gallery_s{
+    text-align:center;
+    margin: 0 auto;
+    display:inline;
+  }
+  
+  .filter_drop{
+    max-width: 65%;
+    max-height: 65%;
+  }
+
+  .face_drop{
+    max-width: 65%;
+    max-height: 65%;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .ui-panel{
+    width:40%;
+  }
+
+  img { 
+    max-width: 30%;
+    max-height: 30%;
+  }
+
+  img.filter {
+    max-height: 100%;
+  }
+
+  img#settings{
+    max-width: 15%;
+    max-height: 15%;
+    left:2%;
+  }
+
+  img#flash{
+    max-width: 15%;
+    max-height: 15%;
+    left:22%;
+  }
+
+  img#camera-mode{
+    max-width: 15%;
+    max-height: 15%;
+    left:45%;
+  }
+
+  img#change{
+    max-width: 15%;
+    max-height: 15%;
+    left:67%;
+  }
+
+  img#fullScreen{
+    max-width: 15%;
+    max-height: 15%;
+    left:90%;
+  }
+
+  img#up{
+    max-width: 7%;
+    max-height: 7%;
+    top: 73%;
+    left:46%;
+  }
+
+  img#snapshot{
+    max-width: 20%;
+    max-height: 20%;
+    top: 80%;
+    left:43%;
+  }
+  
+
+  img.snapshotMode{
+    min-height: 10em;
+    min-width: 10em;
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  canvas#photoPv {
+    z-index: 3; 
+    position:fixed;
+    top: 80%;
+    left: 10%;
+    max-width: 15%;
+    max-height: 15%;
+  }
+
+  img#camera, img#save_s, img#gallery_s{
+    text-align:center;
+    margin: 0 auto;
+    display:inline;
+  }
+}
+
+
+@media screen and (orientation: landscape) and (max-width: 800px){
+  .face_drop{
+    max-width: 60%;
+  }
+  .drop_face{
+    width: 100%;
+  }
+  .filter_drop{
+    max-width: 60%;
+  }
+
+/*  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 60%;
+  }*/
+
+  .filter_Item{
+    max-width: 60%;
+    max-height:50%;
+  }
+  .face_Item{
+    max-width: 30%;
+    max-height: 60%;
+  }
+  .box_filter .drop_filter {
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 545px) and (max-width: 650px){
+
+  .filter_drop,.face_drop{
+    max-width: 50%;
+    max-height: 50%;
+  }
+
+  .box_face{
+    left:60%;
+  }
+  .box_filter{
+    right: 2%;
+  }
+
+}
+
+@media screen and (min-width: 430px) and (max-width: 545px){
+
+  .filter_drop,.face_drop{
+    max-width: 40%;
+    max-height: 40%;
+  }
+
+  .box_face{
+    left:55%;
+  }
+  .box_filter{
+    right: 0%;
+  }
+
+}
+
+@media screen and (min-width: 250px) and (max-width: 430px){
+
+  .filter_drop,.face_drop{
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  .box_face{
+    right:20%;
+  }
+  .box_filter{
+    left: 80%;
+  }
+
+  .filter_Item{
+    max-width: 100%;
+  }
+/*  .face_Item{
+    max-width: 30%;
+    max-height: 60%;
+  }*/
+  .box_filter .drop_filter {
+    max-width: 300%;
+  }
+
+    .drop_filter{
+    width:150%;
+  }
+
+}
+
+@media screen and (orientation: landscape ){
+
+
+  #camerafilterList{
+   background: rgba(20%,20%,20%,0.7);
+   opacity:0.8;
+   position: fixed;
+   width: 70%;
+   height: 20%;
+   top: 80%;
+   left: 15%;
+  }
+
+  .ui-panel{
+    width:60%;
+  }
+
+  img { 
+    max-width: 30%;
+    max-height: 30%;
+  }
+
+  img.filter {
+    max-height: 100%;
+  }
+
+#menu_icon1{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+   top:2%;
+   left:2%;
+}
+#menu_icon2{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top:27%;
+  left:2%;
+}
+
+#menu_icon3{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top:52%;
+  left:2%;
+}
+
+#menu_icon4{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top:77%;
+  left:2%;
+}
+
+#menu_icon5{
+  position:fixed;
+  max-width: 12%;
+  max-height: 12%;
+  top:2%;
+  left:85%;
+}
+
+  img#up{
+    max-width: 7%;
+    max-height: 7%;
+    top: 90%;
+    left:46%;
+  }
+
+  img#snapshot{
+    max-width: 20%;
+    max-height: 20%;
+    top: 40%;
+    left:84%;
+  }
+
+  img.snapshotMode{
+    min-height: 10em;
+    min-width: 10em;
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  canvas#photoPv {
+    z-index: 3; 
+    position:fixed;
+    top:77%;
+    left:85%;
+    max-width: 15%;
+    max-height: 15%;
+  }
+
+  img#camera, img#save_s, img#gallery_s{
+    text-align:center;
+    margin: 0 auto;
+    display:inline;
+  }
+
+  .face_drop{
+    max-width: 60%;
+    max-height: 60%;
+  }
+  .filter_drop{
+    max-width: 60%;
+    max-height: 60%;
+  }
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 55%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    right: 20%;
+  }
+  #filterFootBar{
+    z-index:3;
+    background:rgba(0, 0, 0,0.5);
+    width:100%;
+    position: fixed;
+    top:65%;
+  }
+
+  .filter_Item{
+    max-width: 100%;
+  }
+  .face_Item{
+    max-width: 60%;
+  }
+  .drop_filter{
+    width:100%;
+  }
+
+
+
+ /* #selectFootBar{
+    position: fixed;
+    top:90%;
+    left: 50%;
+    margin-left: -80px;*//* half of #div width*/
+  /*width: 100%;*/
+  /*position:fixed;*/
+  /*}*/
+  img.filter {
+    max-height: 50%;
+    max-width: 50%;
+  }
+
+  img.icon_editBar{
+    max-width: 15%;
+    max-height: 15%;
+  }
+  img.icon_editBar_MOS{
+    max-width: 7%;
+    max-height: 7%;
+  }
+}
+
+@media screen and (orientation: landscape)and (max-width: 925px){
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 50%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    right: 15%;
+  }
+
+}
+
+@media screen and (orientation: landscape) and (min-width: 1279px){
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    left: 60%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 82%;
+    right: 20%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 440px){
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 80%;
+    left: 60%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 80%;
+    right: 15%;
+  }
+
+  .face_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_Item{
+    max-width: 100%;
+  }
+  .face_Item{
+    max-width: 30%;
+  }
+  .drop_filter{
+    width:70%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 600px)and (min-width: 553px)and (max-height: 700px){
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 83%;
+    left: 55%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 83%;
+    right: 17%;
+  }
+
+  .face_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_Item{
+    max-width: 100%;
+  }
+  .face_Item{
+    max-width: 30%;
+  }
+  .drop_filter{
+    width:70%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 600px)and (min-width: 325px)and (max-height: 552px){
+  .box_face {
+    z-index: 3; 
+    position:fixed;
+    top: 83%;
+    left: 52%;
+  }
+
+  .box_filter {
+    z-index: 3; 
+    position:fixed;
+    top: 83%;
+    right: 16%;
+  }
+
+  .face_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_drop{
+    max-width: 35%;
+    max-height: 35%;
+  }
+  .filter_Item{
+    max-width: 100%;
+  }
+  .face_Item{
+    max-width: 30%;
+  }
+
+  .drop_filter{
+    width:70%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 440px){
+    
+  img.snapshotMode{
+    min-height: 3em;
+    min-width: 3em;
+    max-width: 60%;
+    max-height: 60%;
+  }
+  
+}

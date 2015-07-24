@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <title> Face and Eyes and Mouth Detection </title>  
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  
+  <body onmousedown="return false;">
+    <h1>GodShot Detect Face and Eyes and Mouth</h1>       
+    <div id="container"> 
+    <p><a href="#" id="try"><img src="http://www.codediesel.com/wp-content/themes/compositio/images/view-demo.gif" alt="view demo" title="view demo" /></a></p>        
+    <h3> Before Detection </h3>
+    <img id="face" src="img/forest.jpg">
+    <p><h3> After Detection </h3></p> 
+    </div>
+    
+    <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.5.2.min.js"></script>   
+    <script src="js/objectdetect.js"></script>
+    <script src="js/objectdetect.frontalface.js"></script>
+    <script src="js/objectdetect.eye.js"></script>  
+    <script src="js/objectdetect.mouth.js"></script>  
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.objectdetect.js"></script>   
+    <script src="js/drag.js"></script>
+    <script src="js/load_img.js"></script>
+    <script src="js/detect_face_and_eye_algo.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>
